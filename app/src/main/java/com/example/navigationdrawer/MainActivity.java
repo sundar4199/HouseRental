@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -65,6 +66,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Log.d("LOG", "onNavigationItemSelected: Nav View House");
             drawerLayout.closeDrawer(GravityCompat.START);
             loadFragment(new RentHouseFragment());
+        }
+        if (id==R.id.nav_cycle){
+            Log.d("LOG", "onNavigationItemSelected: Nav View House");
+            drawerLayout.closeDrawer(GravityCompat.START);
+            loadFragment(new ViewHousesFragment());
+        }
+        if (id==R.id.nav_plane){
+            Log.d("LOG", "onNavigationItemSelected: Nav View House");
+            drawerLayout.closeDrawer(GravityCompat.START);
+            loadFragment(new RatingsFragment());
+        }
+        if (id == R.id.nav_share){
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+            sendIntent.setType("text/plain");
+
+            Intent shareIntent = Intent.createChooser(sendIntent, null);
+            startActivity(shareIntent);
         }
 
 
