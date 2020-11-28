@@ -1,11 +1,11 @@
-package com.example.navigationdrawer;
+package com.example.navigationdrawer.util;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
 public class Rating {
-    String comment;
-    Integer val;
+    public String comment;
+    public Integer val;
 
     public Rating(String comment, Integer val) {
         this.comment = comment;

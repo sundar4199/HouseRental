@@ -1,8 +1,7 @@
-package com.example.navigationdrawer;
+package com.example.navigationdrawer.fragment;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.location.Address;
@@ -24,6 +23,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.navigationdrawer.util.GpsTracker;
+import com.example.navigationdrawer.NewHouse;
+import com.example.navigationdrawer.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -31,7 +33,6 @@ import java.io.IOException;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
-import static android.content.Context.MODE_PRIVATE;
 
 public class RentHouseFragment extends Fragment {
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -51,7 +52,7 @@ public class RentHouseFragment extends Fragment {
         final TextView address = rootView.findViewById(R.id.add_address);
         final TextView location = rootView.findViewById(R.id.add_location);
         final TextView amount = rootView.findViewById(R.id.add_amount);
-        Button loc_button = (Button)rootView.findViewById(R.id.location_button);
+        final Button loc_button = (Button)rootView.findViewById(R.id.location_button);
         Button cam_button = (Button)rootView.findViewById(R.id.cam_but);
         image =  rootView.findViewById(R.id.cam_img);
 
@@ -110,7 +111,11 @@ public class RentHouseFragment extends Fragment {
                 myRef.child("ads").child(nameTextView.getText().toString()).child("address").setValue(address.getText().toString());
                 myRef.child("ads").child(nameTextView.getText().toString()).child("location").setValue(location.getText().toString());
                 myRef.child("ads").child(nameTextView.getText().toString()).child("amount").setValue(amount.getText().toString());
-
+                nameTextView.setText("");
+                address.setText("");
+                location.setText("");
+                amount.setText("");
+                Toast.makeText(getActivity(),"House added sucessfully",Toast.LENGTH_LONG).show();
             }
         });
 

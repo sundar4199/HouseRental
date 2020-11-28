@@ -1,4 +1,4 @@
-package com.example.navigationdrawer;
+package com.example.navigationdrawer.util;
 
 import android.Manifest;
 import android.app.Activity;

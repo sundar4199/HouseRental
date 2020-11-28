@@ -1,4 +1,4 @@
-package com.example.navigationdrawer;
+package com.example.navigationdrawer.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,12 +8,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.navigationdrawer.R;
+import com.example.navigationdrawer.util.Rating;
 import com.willy.ratingbar.ScaleRatingBar;
 
 import java.util.ArrayList;
 
 public class RatingsAdapter extends RecyclerView.Adapter<RatingsAdapter.ViewHolder> {
-    private ArrayList<Rating> allratings;
+    public ArrayList<Rating> allratings;
 
     @NonNull
     @Override
