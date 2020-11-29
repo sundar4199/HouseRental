@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bgsign"
-    tools:context=".SignUp">
+    tools:context=".activity.SignUp">
 
 
     <TextView
@@ -119,6 +119,21 @@
         app:layout_constraintVertical_bias="0.716" />
 
     <Button
+        android:id="@+id/camera_button"
+        android:layout_width="168dp"
+        android:layout_height="40dp"
+        android:background="@drawable/valibtn"
+        android:text="Take Profile Pic"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.825" />
+    <Button
         android:id="@+id/sign_button"
         android:layout_width="168dp"
         android:layout_height="40dp"
@@ -132,6 +147,6 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.863" />
+        app:layout_constraintVertical_bias="0.925" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

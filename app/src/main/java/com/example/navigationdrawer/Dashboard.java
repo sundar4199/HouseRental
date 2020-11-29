@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.navigationdrawer.activity.NewLogin;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,20 +20,17 @@ public class Dashboard extends AppCompatActivity {
 
     TextView welocmetext;
     Button btn,btnso;
-    private FirebaseAuth firebaseAuth;
     FirebaseDatabase rootNode;
     DatabaseReference reference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        firebaseAuth = FirebaseAuth.getInstance();
         btn = (Button)findViewById(R.id.btn);
         btnso = (Button)findViewById(R.id.btnSignout);
         welocmetext = (TextView)findViewById(R.id.viewtxt);
 
         rootNode=FirebaseDatabase.getInstance();
-        reference=rootNode.getReference("users").child(firebaseAuth.getUid());
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -54,7 +51,7 @@ public class Dashboard extends AppCompatActivity {
         btnso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                firebaseAuth.signOut();
+
                 finish();
                 //starting login activity
                 openActivity5();
@@ -75,7 +72,7 @@ public class Dashboard extends AppCompatActivity {
     }
 
     public void openActivity5(){
-        Intent intent = new Intent(this,NewLogin.class);
+        Intent intent = new Intent(this, NewLogin.class);
         startActivity(intent);
     }
 }

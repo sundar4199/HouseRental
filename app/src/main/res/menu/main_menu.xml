@@ -3,15 +3,11 @@
 
     <group android:checkableBehavior="single">
 
-        <item
-            android:id="@+id/nav_home"
-            android:title="Home"
-            android:icon="@drawable/home_icon"/>
 
         <item
             android:id="@+id/nav_cycle"
             android:title="View House"
-            android:icon="@drawable/cycle_icon"/>
+            android:icon="@drawable/home_icon"/>
 
         <item
             android:id="@+id/nav_bus"
@@ -31,10 +27,7 @@
 
             <menu>
                 <group android:checkableBehavior="single">
-                <item
-                    android:id="@+id/nav_login"
-                    android:title="Login"
-                    android:icon="@drawable/login_icon"/>
+
 
                 <item
                     android:id="@+id/nav_profile"
@@ -60,10 +53,10 @@
                 android:title="Share"
                 android:icon="@drawable/share_icon"/>
 
-            <item
-                android:id="@+id/nav_rate"
-                android:title="Rate Us"
-                android:icon="@drawable/rate_icon"/>
+<!--            <item-->
+<!--                android:id="@+id/nav_rate"-->
+<!--                android:title="Rate Us"-->
+<!--                android:icon="@drawable/rate_icon"/>-->
 
         </menu>
 

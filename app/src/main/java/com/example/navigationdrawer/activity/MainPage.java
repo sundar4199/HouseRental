@@ -1,16 +1,20 @@
-package com.example.navigationdrawer;
+package com.example.navigationdrawer.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.navigationdrawer.R;
 
 public class MainPage extends AppCompatActivity {
     Button btnSplash;
@@ -23,6 +27,15 @@ public class MainPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
 
+        SharedPreferences sharedPref = getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        String uname = sharedPref.getString("uname","");
+        Log.d("UNAME", uname);
+        if (uname != ""){
+            Intent intent = new Intent(this,MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
         fromtopbottom= AnimationUtils.loadAnimation(this,R.anim.fromtopbottom);
         smalltobig= AnimationUtils.loadAnimation(this,R.anim.smalltobig);
 //        Typeface MMedium = Typeface.createFromAsset(getAssets(),"font/mlight.ttf");
@@ -33,12 +46,16 @@ public class MainPage extends AppCompatActivity {
         btnSplash= findViewById(R.id.btnSplash);
         imageView = findViewById(R.id.imageView);
 
+
+
 //        tvSplash.setTypeface(MRegular);
 //        btnSplash.setTypeface(MMedium);
 
         tvSplash.startAnimation(fromtopbottom);
         btnSplash.startAnimation(fromtopbottom);
         imageView.startAnimation(smalltobig);
+
+
 
         btnSplash.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +68,7 @@ public class MainPage extends AppCompatActivity {
     public void openMain(){
         Intent intent = new Intent(this,NewLogin.class);
         startActivity(intent);
+        finish();
 
     }
 }

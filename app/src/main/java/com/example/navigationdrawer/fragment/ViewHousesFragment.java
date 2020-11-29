@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.navigationdrawer.NewHouse;
+import com.example.navigationdrawer.activity.NewHouse;
 import com.example.navigationdrawer.R;
 import com.example.navigationdrawer.adapter.ViewHousesAdapter;
 import com.google.firebase.database.DataSnapshot;
@@ -49,7 +49,7 @@ public class ViewHousesFragment extends Fragment {
                 }
 
                 Log.d("TAG", String.valueOf(allHouse.size()));
-                ViewHousesAdapter adapter = new ViewHousesAdapter(allHouse);
+                ViewHousesAdapter adapter = new ViewHousesAdapter(getActivity(),allHouse);
                 recyclerView.setHasFixedSize(true);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerView.setAdapter(adapter);

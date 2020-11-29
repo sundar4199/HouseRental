@@ -1,4 +1,4 @@
-package com.example.navigationdrawer;
+package com.example.navigationdrawer.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -7,12 +7,17 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toolbar;
 
+import com.example.navigationdrawer.R;
+import com.example.navigationdrawer.fragment.ProfileFragment;
 import com.example.navigationdrawer.fragment.RatingsFragment;
 import com.example.navigationdrawer.fragment.RentHouseFragment;
 import com.example.navigationdrawer.fragment.ViewHousesFragment;
@@ -44,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
+        loadFragment(new ViewHousesFragment());
     }
 
     private void setSupportActionBar(Toolbar toolbar) {
@@ -86,6 +92,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             Intent shareIntent = Intent.createChooser(sendIntent, null);
             startActivity(shareIntent);
+        }
+        if(id == R.id.nav_profile){
+            Log.d("LOG", "onNavigationItemSelected: Nav View House");
+            drawerLayout.closeDrawer(GravityCompat.START);
+            loadFragment(new ProfileFragment());
+
+        }
+        if(id == R.id.nav_logout){
+            SharedPreferences sharedPref = getSharedPreferences(
+                    getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("uname", "");
+            editor.apply();
+            Intent intent = new Intent(this,MainPage.class);
+            startActivity(intent);
+            finish();
         }
 
 

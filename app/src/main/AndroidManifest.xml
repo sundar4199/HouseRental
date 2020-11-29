@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".util.FirebaseHandler"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -18,8 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MapTrackDemo"></activity>
-        <activity android:name=".SignUp" />
-        <activity android:name=".MainPage">
+        <activity android:name=".activity.SignUp" />
+        <activity android:name=".activity.MainPage">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,9 +29,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".NewLogin" />
+        <activity android:name=".activity.NewLogin" >
+
+        </activity>
         <activity android:name=".Dashboard" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.MainActivity">
 
         </activity>
     </application>

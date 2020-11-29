@@ -24,7 +24,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.navigationdrawer.util.GpsTracker;
-import com.example.navigationdrawer.NewHouse;
+import com.example.navigationdrawer.activity.NewHouse;
 import com.example.navigationdrawer.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

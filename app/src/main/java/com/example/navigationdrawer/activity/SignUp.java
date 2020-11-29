@@ -1,48 +1,49 @@
-package com.example.navigationdrawer;
+package com.example.navigationdrawer.activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
+import android.provider.MediaStore;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.navigationdrawer.R;
+import com.example.navigationdrawer.util.ImageSaver;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUp extends AppCompatActivity {
+    static final int REQUEST_IMAGE_CAPTURE = 1;
     private ProgressDialog progressDialog;
     EditText name,email,password,rpassword,username;
-    Button button;
+    Button button,cam_but;
     FirebaseDatabase rootNode;
     DatabaseReference reference;
-    private FirebaseAuth mAuth;
+    Bitmap imageBitmap;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        mAuth = FirebaseAuth.getInstance();
         email=findViewById(R.id.reg_email);
         button=findViewById(R.id.sign_button);
         password=findViewById(R.id.reg_password);
         rpassword=findViewById(R.id.reg_rpassword);
         name=findViewById(R.id.reg_name);
         username=findViewById(R.id.reg_username);
+        cam_but = findViewById(R.id.camera_button);
         progressDialog = new ProgressDialog(this);
 
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
+        final DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
 
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -54,24 +55,26 @@ public class SignUp extends AppCompatActivity {
 
                 else
 
-                    registerUser();
-
-//                    rootNode=FirebaseDatabase.getInstance();
-//                    reference=rootNode.getReference("users");
-
-
-
-
-//                UserHelperClass helperClass=new UserHelperClass(nameInput,emailInput,passwordInput,usersInput);
-//                    reference.child(usersInput).setValue(helperClass);
-//                    openActivity2();
-
-
+                    registerUser(myRef);
 
             }
 
 
 
+
+        });
+
+        cam_but.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                try {
+                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                } catch (ActivityNotFoundException e) {
+                    // display error state to the user
+                }
+
+            }
 
         });
 
@@ -81,10 +84,9 @@ public class SignUp extends AppCompatActivity {
 
 
 
-
     }
 
-    private void registerUser(){
+    private void registerUser(DatabaseReference myRef){
 //        rootNode=FirebaseDatabase.getInstance();
 //        reference=rootNode.getReference("users");
         final String nameInput = name.getText().toString();
@@ -93,27 +95,20 @@ public class SignUp extends AppCompatActivity {
         final String usersInput = username.getText().toString();
         progressDialog.setMessage("Registering Please Wait...");
         progressDialog.show();
-        mAuth.createUserWithEmailAndPassword(emailInput, passwordInput)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        //checking if success
-                        if(task.isSuccessful()){
-                            UserHelperClass helperClass=new UserHelperClass(nameInput,usersInput);
-                            Log.d("TAG", "onComplete: " + mAuth.getUid().toString());
-//                            reference.child(mAuth.getUid()).setValue(helperClass);
-                            final DatabaseReference myRef = FirebaseDatabase.getInstance().getReference();
+        if (imageBitmap != null) {
+            new ImageSaver(getApplication()).
+                    setFileName(usersInput+".png").
+                    setDirectoryName("images").
+                    save(imageBitmap);
+        }
 
-                            myRef.child("users").child(usersInput).child("usersInput").setValue(usersInput);
-                            myRef.child("users").child(usersInput).child("nameInput").setValue(nameInput);
-                            startActivity(new Intent(getApplicationContext(), NewLogin.class));
-                        }else{
-                            //display some message here
-                            Toast.makeText(SignUp.this,"Registration Error",Toast.LENGTH_LONG).show();
-                        }
-                        progressDialog.dismiss();
-                    }
-                });
+        myRef.child("users").child(usersInput).child("name").setValue(nameInput);
+        myRef.child("users").child(usersInput).child("email").setValue(emailInput);
+        myRef.child("users").child(usersInput).child("password").setValue(passwordInput);
+        myRef.child("users").child(usersInput).child("username").setValue(usersInput);
+        progressDialog.dismiss();
+        Toast.makeText(getApplicationContext(), "User Registered",Toast.LENGTH_SHORT).show();
+        openActivity2();
     }
 
     private boolean validateName(EditText name){
@@ -190,6 +185,17 @@ public class SignUp extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            imageBitmap = (Bitmap) extras.get("data");
 
+
+
+
+        }
+    }
 
 }

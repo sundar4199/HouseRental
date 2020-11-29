@@ -26,8 +26,9 @@
             android:layout_height="wrap_content"/>
         <EditText
             android:id="@+id/add_address"
-            android:hint="Address"
+            android:hint="Contact Number"
             android:layout_margin="10dp"
+            android:inputType="number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <LinearLayout
@@ -52,6 +53,7 @@
         <EditText
             android:id="@+id/add_amount"
             android:hint="Amount"
+            android:inputType="number"
             android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
